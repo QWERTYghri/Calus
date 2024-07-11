@@ -7,10 +7,10 @@
 include conf.mk
 
 .PHONY: all clean
-all: CALUS
+all: $(CALUS)
 
-CALUS: ./src/Private/*.c ./src/Public/*.h ./src/main.c
+$(CALUS): ./src/Private/*.c ./src/Public/*.h ./src/main.c
 	$(CC) $(CFLAGS) $(CPPFLAGS) $(LIB) $(OFLAG) -o $@ $^
 
 clean:
-	-rm *.out *.o
+	-rm *.out *.o $(CALUS)
