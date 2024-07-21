@@ -17,7 +17,7 @@ WINDOW* frontMain = NULL;
 WINDOW* backMain = NULL;
 
 /* Decoration */
-char* logo[] =
+char* logo[LOGO_SIZE] =
 {
         "Lalalalala bored"
 };
@@ -51,8 +51,17 @@ initializeScreen ( void )
 static void
 initializeMainMenu ( void )
 {
-        listPrint ( frontMain, LOGO_OFFSET, 3, logo );
+        char* menuList[] =
+        {
+                "Open Tracker",
+                "Exit"
+        };
+
+        /* Initiialize Menu */
+        int32_t cursorMark = listPrint ( frontMain, LOGO_OFFSET, LOGO_SIZE, logo );
         wrefresh ( frontMain );
+
+        int32_t result = createMenu ( frontMain, cursorMark + 1, OPTION_AMOUNT, menuList );
 }
 
 

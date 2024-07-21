@@ -3,6 +3,11 @@
         "stdint.h": "c",
         "utility.h": "c",
         "ncurses.h": "c",
-        "define.h": "c"
+        "define.h": "c",
+        "compare": "c",
+        "cstdint": "c",
+        "list": "c",
+        "chrono": "c",
+        "variant": "c"
     }
 }

@@ -79,11 +79,76 @@ centerPrint ( WINDOW* window, int32_t ySize, char* string )
 }
 
 /* List Print of Strings */
-void
-listPrint ( WINDOW* window, int32_t ySize, int32_t size, char** stringList )
+int32_t
+listPrint ( WINDOW* window, int32_t ySize, int32_t size, char* stringList[] )
 {
-        for ( int32_t index = 0; index < size; index++ )
+        int32_t index;
+        for ( index = 0; index < size; index++ )
                 centerPrint ( window, ySize + index, stringList[index] );
+        
+        return ySize + index;
+}
+
+/* Helper function to print options */
+static void
+printMenu ( WINDOW* window, int32_t ySize, int32_t size, int32_t selection, char* list[] )
+{
+        /* Display Selection */
+        for ( int32_t index = 0; index < size; index++ ) {
+                /* Add selection*/
+                if ( selection == index )
+                        wattron ( window, COLOR_PAIR ( ColorSelect ) );
+
+                centerPrint ( window, ySize + index, list[index] );
+                /* Remove Selection*/
+                if ( selection == index )
+                        wattroff ( window, COLOR_PAIR ( ColorSelect ) );
+        }
+
+        /* Refresh Screen */
+        wrefresh ( window );
+}
+
+/* Create Menu List */
+int32_t
+createMenu ( WINDOW* window, int32_t ySize, int32_t size, char* list[] )
+{
+        /* Input Data */
+        int32_t data;
+        int32_t selection = 0;
+
+        /* Print Menu */
+        printMenu ( window, ySize, size, selection, list );
+        while ( ( data = wgetch ( window ) ) != EOF )
+        {
+                /* Handle selection */
+                switch ( data )
+                {
+                        case KEY_DOWN:
+                                selection++;
+                                if ( selection == size )
+                                        selection = 0;
+
+                                break;
+                        case KEY_UP:
+                                if ( selection <= 0 ) {
+                                        selection = size - 1;
+                                        break;
+                                } 
+
+                                break;
+                        case KEY_ENTER:
+                        case ENTER:
+                        case 'e':
+                                return selection;
+                }
+
+                /* Print Data */
+                printMenu ( window, ySize, size, selection, list );
+                wrefresh ( window );
+        }
+
+        return 0;
 }
 
 /* Error Function */

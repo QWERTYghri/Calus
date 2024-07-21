@@ -25,6 +25,11 @@ enum {
         ColorSelect
 };
 
+/* Data */
+#define OPTION_AMOUNT ( ( uint32_t ) 2 )
+#define LOGO_SIZE ( ( uint32_t ) 1 )
+#define ENTER ( ( uint32_t ) 13 )
+
 /* Screen Size */
 #define SIZE_Y ( ( uint32_t ) LINES - 30 )
 #define SIZE_X ( ( uint32_t ) COLS - 80 )
