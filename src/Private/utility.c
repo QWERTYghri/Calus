@@ -10,6 +10,7 @@
 #include <locale.h>
 #include <stdlib.h>
 #include <stdint.h>
+#include <string.h>
 
 /* Local Import */
 #include "../Public/define.h"
@@ -61,6 +62,29 @@ exitNcurses ( void )
         endwin ();
 }
 
+/* Determine Center Value */
+int32_t
+determineCenter ( int32_t size, int32_t reference )
+{
+        return ( reference / 2 ) - ( size / 2 );
+}
+
+/* Create Center Print */
+void
+centerPrint ( WINDOW* window, int32_t ySize, char* string )
+{
+        /* Get Window Sizes */
+        int32_t xWindow = getmaxx ( window );
+        mvwprintw ( window, ySize, determineCenter ( strlen ( string ), xWindow ), "%s", string );
+}
+
+/* List Print of Strings */
+void
+listPrint ( WINDOW* window, int32_t ySize, int32_t size, char** stringList )
+{
+        for ( int32_t index = 0; index < size; index++ )
+                centerPrint ( window, ySize + index, stringList[index] );
+}
 
 /* Error Function */
 void
@@ -74,4 +98,17 @@ errorMessage ( int32_t code, const char* format, ... )
 	
 	va_end ( list );
 	exit ( code );
+}
+
+/* Refresh List */
+void
+refreshList ( int32_t count, ... )
+{
+        va_list windows;
+        va_start ( windows, count );
+
+        for ( int32_t index = 0; index < count; index++ )
+                wrefresh ( va_arg ( windows, WINDOW* ) );
+
+        va_end ( windows );
 }

@@ -4,7 +4,7 @@
 # ***********
 
 # Additional
-./calus
+calus
 
 # Prerequisites
 *.d

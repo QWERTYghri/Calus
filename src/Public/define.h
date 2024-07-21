@@ -25,6 +25,13 @@ enum {
         ColorSelect
 };
 
+/* Screen Size */
+#define SIZE_Y ( ( uint32_t ) LINES - 30 )
+#define SIZE_X ( ( uint32_t ) COLS - 80 )
+
+/* Screen Offset */
+#define LOGO_OFFSET ( ( uint32_t ) 5 )
+
 /* Errors */
 #define ERROR_COLOR ( "ERROR: Color could not be initialized\n" )
 

@@ -1,6 +1,8 @@
 {
     "files.associations": {
         "stdint.h": "c",
-        "utility.h": "c"
+        "utility.h": "c",
+        "ncurses.h": "c",
+        "define.h": "c"
     }
 }
